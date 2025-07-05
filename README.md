@@ -20,7 +20,7 @@ Experience the full application with interactive card management, real-time upda
 1. **Clone the repository**
 
    ```bash
-   git clone <repository-url>
+   git clone [<repository-url>](https://github.com/django18/fe-challenge.git)
    cd aspire-card-app
    ```
 
