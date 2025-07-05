@@ -1,11 +1,5 @@
 "use client";
 
-import HomeIconSvg from "@/assets/icons/Home.svg";
-import CardIconSvg from "@/assets/icons/Card.svg";
-import PaymentsIconSvg from "@/assets/icons/Payments.svg";
-import CreditIconSvg from "@/assets/icons/Credit.svg";
-import AccountIconSvg from "@/assets/icons/Account.svg";
-
 import {
   HomeIconMobile,
   CardIconMobile,

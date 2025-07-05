@@ -10,8 +10,6 @@ import {
   Megaphone,
 } from "lucide-react";
 import { cn } from "@/utils/cn";
-import CardIconSvg from "@/assets/icons/Card.svg";
-import { Icon } from "../icons/Icon";
 
 interface TransactionListProps {
   transactions: Transaction[];
