@@ -99,4 +99,26 @@ const ActionButton = ({ icon, label, onClick, loading }: ActionButtonProps) => {
   );
 };
 
+interface LoaderProps {
+  size?: "sm" | "md" | "lg";
+  className?: string;
+}
+
+export const Loader: React.FC<LoaderProps> = ({
+  size = "md",
+  className = "",
+}) => {
+  const sizeClasses = {
+    sm: "w-4 h-4",
+    md: "w-6 h-6",
+    lg: "w-8 h-8",
+  };
+
+  return (
+    <div className={`animate-spin ${sizeClasses[size]} ${className}`}>
+      <div className="border-2 border-gray-200 border-t-blue-600 rounded-full h-full w-full"></div>
+    </div>
+  );
+};
+
 export { Button, ActionButton };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { Card as CardType, CardFormData } from "@/types/card";
 import { useCardsRedux } from "@/hooks/useCardsRedux";
 import { CardCarousel } from "@/components/Card/CardCarousel";
@@ -15,7 +15,7 @@ import SetSpendLimitIconSvg from "@/assets/icons/set-spend-limit.svg";
 import GPayIconSvg from "@/assets/icons/GPay.svg";
 import ReplaceCardIconSvg from "@/assets/icons/replace-card.svg";
 import DeactivateCardIconSvg from "@/assets/icons/deactivate-card.svg";
-import { Button, ActionButton } from "@/components/ui/Button";
+import { Button, ActionButton, Loader } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import { CardDetails, CardTransactions } from "@/assets/icons";
 import { Icon } from "@/components/icons/Icon";
@@ -23,6 +23,7 @@ import { Icon } from "@/components/icons/Icon";
 export default function HomePage() {
   const {
     cards,
+    loading,
     error,
     selectedCard,
     addingCard,
@@ -33,7 +34,7 @@ export default function HomePage() {
   } = useCardsRedux();
 
   const headerRef = useRef<HTMLDivElement>(null);
-  const headerHeight = headerRef.current?.offsetHeight;
+  const [headerHeight, setHeaderHeight] = useState<number>(475);
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"my-cards" | "company-cards">(
@@ -41,6 +42,40 @@ export default function HomePage() {
   );
   const [isCardDetailsOpen, setCardDetailsOpen] = useState(false);
   const [isTransactionsOpen, setTransactionsOpen] = useState(true);
+
+  // Update header height on mount and window resize
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      if (headerRef.current) {
+        setHeaderHeight(headerRef.current.offsetHeight);
+      }
+    };
+
+    // Update on mount
+    updateHeaderHeight();
+
+    // Add resize listener
+    window.addEventListener("resize", updateHeaderHeight);
+
+    // Cleanup listener on unmount
+    return () => {
+      window.removeEventListener("resize", updateHeaderHeight);
+    };
+  }, []);
+
+  // Update header height when content changes (like when cards are loaded)
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      if (headerRef.current) {
+        setHeaderHeight(headerRef.current.offsetHeight);
+      }
+    };
+
+    // Use setTimeout to ensure DOM is updated
+    const timeoutId = setTimeout(updateHeaderHeight, 100);
+
+    return () => clearTimeout(timeoutId);
+  }, [cards, selectedCard]);
 
   // Get the current card or first card if none selected
   const currentCard = selectedCard || cards[0];
@@ -84,16 +119,22 @@ export default function HomePage() {
               <span className="bg-[#01D167] px-1.5 py-0.5 rounded text-sm font-semibold">
                 S$
               </span>
-              <span className="text-3xl font-bold">
-                {currentCard?.balance.toLocaleString("en-SG") || "0"}
-              </span>
+              {loading ? (
+                <div className="flex items-center">
+                  <Loader size="sm" className="text-white" />
+                </div>
+              ) : (
+                <span className="text-3xl font-bold">
+                  {currentCard?.balance.toLocaleString("en-SG") || "0"}
+                </span>
+              )}
             </div>
           </div>
           <button
             onClick={() => setIsAddModalOpen(true)}
             className="flex items-center space-x-1 text-[#0C365A] font-medium"
           >
-            <Icon name="plus" size={16} />
+            <Plus className="w-4 h-4" />
             <span className="text-[#23CEFD]">New card</span>
           </button>
         </div>
@@ -150,9 +191,15 @@ export default function HomePage() {
                   <div className="bg-[#01D167] text-white px-2 py-1 rounded text-sm font-semibold">
                     S$
                   </div>
-                  <span className="text-3xl font-bold text-gray-900">
-                    {currentCard?.balance.toLocaleString("en-SG") || "0"}
-                  </span>
+                  {loading ? (
+                    <div className="flex items-center">
+                      <Loader size="sm" className="text-gray-600" />
+                    </div>
+                  ) : (
+                    <span className="text-3xl font-bold text-gray-900">
+                      {currentCard?.balance.toLocaleString("en-SG") || "0"}
+                    </span>
+                  )}
                 </div>
               </div>
               <Button
@@ -275,11 +322,15 @@ export default function HomePage() {
               {/* Card Details Accordion */}
               <Accordion
                 title="Card details"
-                icon={<Icon name="cardDetails" />}
+                icon={<CardDetails width={24} height={24} />}
                 isOpen={isCardDetailsOpen}
                 onToggle={() => setCardDetailsOpen(!isCardDetailsOpen)}
               >
-                {currentCard && (
+                {loading ? (
+                  <div className="flex justify-center items-center p-8">
+                    <Loader size="md" className="text-blue-600" />
+                  </div>
+                ) : currentCard ? (
                   <div className="space-y-4 text-sm text-gray-700 p-4">
                     <div className="flex justify-between">
                       <span>Name on card</span>
@@ -310,6 +361,10 @@ export default function HomePage() {
                       </span>
                     </div>
                   </div>
+                ) : (
+                  <div className="p-4 text-sm text-gray-500 text-center">
+                    No card selected
+                  </div>
                 )}
               </Accordion>
 
@@ -321,7 +376,11 @@ export default function HomePage() {
                 onToggle={() => setTransactionsOpen(!isTransactionsOpen)}
                 className="mb-2"
               >
-                {currentCard && (
+                {loading ? (
+                  <div className="flex justify-center items-center p-8">
+                    <Loader size="md" className="text-blue-600" />
+                  </div>
+                ) : currentCard ? (
                   <div className="space-y-4 text-sm text-gray-700">
                     <div className="p-4">
                       <TransactionList
@@ -346,6 +405,10 @@ export default function HomePage() {
                         </div>
                       )}
                   </div>
+                ) : (
+                  <div className="p-4 text-sm text-gray-500 text-center">
+                    No card selected
+                  </div>
                 )}
               </Accordion>
             </div>
@@ -369,7 +432,17 @@ export default function HomePage() {
               )}
 
               {/* Card Actions - Integrated into rounded card with blue background */}
-              {currentCard && (
+              {loading ? (
+                <div className="bg-[#EDF3FF] rounded-t-3xl pt-4 pb-4">
+                  <div className="px-4">
+                    <div className="bg-[#EDF3FF] rounded-lg p-8">
+                      <div className="flex justify-center items-center">
+                        <Loader size="md" className="text-blue-600" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : currentCard ? (
                 <div className="bg-[#EDF3FF] rounded-t-3xl pt-4 pb-4">
                   <div className="px-4">
                     <div className="grid grid-cols-5 gap-1 bg-[#EDF3FF] rounded-lg p-1">
@@ -432,7 +505,7 @@ export default function HomePage() {
                     </div>
                   </div>
                 </div>
-              )}
+              ) : null}
 
               {/* Accordions with padding */}
               <div className="p-6 space-y-6 pb-10">
@@ -443,7 +516,11 @@ export default function HomePage() {
                   isOpen={isCardDetailsOpen}
                   onToggle={() => setCardDetailsOpen(!isCardDetailsOpen)}
                 >
-                  {currentCard && (
+                  {loading ? (
+                    <div className="flex justify-center items-center p-8">
+                      <Loader size="md" className="text-blue-600" />
+                    </div>
+                  ) : currentCard ? (
                     <div className="space-y-4 text-sm text-gray-700 p-4">
                       <div className="flex justify-between">
                         <span>Name on card</span>
@@ -474,6 +551,10 @@ export default function HomePage() {
                         </span>
                       </div>
                     </div>
+                  ) : (
+                    <div className="p-4 text-sm text-gray-500 text-center">
+                      No card selected
+                    </div>
                   )}
                 </Accordion>
 
@@ -485,7 +566,11 @@ export default function HomePage() {
                   onToggle={() => setTransactionsOpen(!isTransactionsOpen)}
                   className="mb-2"
                 >
-                  {currentCard && (
+                  {loading ? (
+                    <div className="flex justify-center items-center p-8">
+                      <Loader size="md" className="text-blue-600" />
+                    </div>
+                  ) : currentCard ? (
                     <div className="space-y-4 text-sm text-gray-700">
                       <div className="p-4">
                         <TransactionList
@@ -509,6 +594,10 @@ export default function HomePage() {
                             </button>
                           </div>
                         )}
+                    </div>
+                  ) : (
+                    <div className="p-4 text-sm text-gray-500 text-center">
+                      No card selected
                     </div>
                   )}
                 </Accordion>
