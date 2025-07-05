@@ -134,7 +134,7 @@ export default function HomePage() {
             onClick={() => setIsAddModalOpen(true)}
             className="flex items-center space-x-1 text-[#0C365A] font-medium"
           >
-            <Plus className="w-4 h-4" />
+            <Icon name="plus" size={16} />
             <span className="text-[#23CEFD]">New card</span>
           </button>
         </div>

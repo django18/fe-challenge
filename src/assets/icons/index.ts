@@ -22,6 +22,7 @@ import CardIconMobile from "./cards-mobile.svg";
 import PaymentsIconMobile from "./payments-mobile.svg";
 import CreditIconMobile from "./credit-mobile.svg";
 import AccountIconMobile from "./profile-mobile.svg";
+import PlusIcon from "./box.svg";
 
 // Export all icons with consistent naming
 export {
@@ -48,6 +49,7 @@ export {
   PaymentsIconMobile,
   CreditIconMobile,
   AccountIconMobile,
+  PlusIcon,
 };
 
 // Icon registry for the Icon component
@@ -70,6 +72,7 @@ export const iconRegistry = {
   cardTransactions: CardTransactions,
   businessAndFinance: BusinessAndFinanceIcon,
   aspireLogoSvgMobile: AspireLogoSvgMobile,
+  plus: PlusIcon,
 } as const;
 
 export type IconName = keyof typeof iconRegistry;
