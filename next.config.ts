@@ -1,25 +1,47 @@
 import type { NextConfig } from "next";
 
-// Enable importing SVG files as React components using @svgr/webpack
-const withSvg: NextConfig["webpack"] = (config) => {
-  config.module.rules.push({
-    test: /\.svg$/i,
-    issuer: /\.[jt]sx?$/,
-    use: [
-      {
-        loader: "@svgr/webpack",
-        options: {
-          icon: true,
+const nextConfig: NextConfig = {
+  webpack: (config) => {
+    // Handle SVG imports with SVGR
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: [
+        {
+          loader: "@svgr/webpack",
+          options: {
+            icon: true,
+            svgProps: {
+              fill: "currentColor",
+            },
+            replaceAttrValues: {
+              "#000": "currentColor",
+              "#000000": "currentColor",
+            },
+          },
+        },
+      ],
+    });
+
+    return config;
+  },
+  // Ensure proper asset handling for Vercel deployment
+  images: {
+    dangerouslyAllowSVG: true,
+    contentDispositionType: "attachment",
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  },
+  // Enable experimental features for better SVG handling
+  experimental: {
+    turbo: {
+      rules: {
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js",
         },
       },
-    ],
-  });
-  return config;
-};
-
-const nextConfig: NextConfig = {
-  /* config options here */
-  webpack: withSvg,
+    },
+  },
 };
 
 export default nextConfig;
