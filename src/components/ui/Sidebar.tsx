@@ -57,7 +57,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
       <div className="p-6 border-b border-[#1a4d73]">
         <div className="flex items-center space-x-2">
           <div className="flex items-center justify-center">
-            <AspireLogoSvg className="text-white" />
+            <AspireLogoSvg className="text-white" width={125} height={35} />
           </div>
         </div>
         <p className="text-sm text-gray-300 mt-2">
