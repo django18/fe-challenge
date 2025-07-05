@@ -2,6 +2,12 @@
 
 A modern banking card management application built with **React 19**, **Next.js 15**, and **TypeScript**. This responsive app allows users to manage their debit cards with real-time updates and persistent data storage.
 
+## 🌐 Live Demo
+
+**🚀 [View Live Application](https://fe-challenge-xi.vercel.app/)**
+
+Experience the full application with interactive card management, real-time updates, and responsive design optimized for both desktop and mobile devices.
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -99,23 +105,17 @@ Each card includes realistic transaction history with different merchants and ca
 
 ## 🚀 Production Deployment
 
+### Live Production App
+
+The application is currently deployed and accessible at:
+**[https://fe-challenge-xi.vercel.app/](https://fe-challenge-xi.vercel.app/)**
+
 ### Build for Production
 
 ```bash
 npm run build
 npm start
 ```
-
-### Deploy to Vercel (Recommended)
-
-1. Connect your GitHub repository to Vercel
-2. Deploy automatically with zero configuration
-
-### Deploy to Netlify
-
-1. Build: `npm run build`
-2. Upload the `.next` folder
-3. Configure Next.js redirects
 
 ## 🔮 Future Enhancements
 
@@ -180,15 +180,3 @@ No environment variables required - the app uses mock data and localStorage for 
 ## 📖 Detailed Implementation
 
 For detailed implementation information, API architecture, and component documentation, see [IMPLEMENTATION.md](./IMPLEMENTATION.md).
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Commit changes: `git commit -m 'Add feature'`
-4. Push to branch: `git push origin feature-name`
-5. Submit a pull request
-
----
-
-**Built with React 19 and Next.js 15**
