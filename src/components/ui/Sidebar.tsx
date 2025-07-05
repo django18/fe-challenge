@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import AspireLogoSvg from "@/assets/icons/Aspire-Logo.svg";
 import HomeIconSvg from "@/assets/icons/Home.svg";
 import CardIconSvg from "@/assets/icons/Card.svg";
@@ -58,13 +57,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
       <div className="p-6 border-b border-[#1a4d73]">
         <div className="flex items-center space-x-2">
           <div className="flex items-center justify-center">
-            <Image
-              src={AspireLogoSvg}
-              alt="Aspire Logo"
-              width={100}
-              height={100}
-              className="brightness-0 invert"
-            />
+            <AspireLogoSvg className="text-white" />
           </div>
         </div>
         <p className="text-sm text-gray-300 mt-2">
@@ -76,6 +69,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
       <nav className="flex-1 p-4">
         <ul className="space-y-2">
           {navigationItems.map((item) => {
+            const IconComponent = item.icon;
             return (
               <li key={item.label}>
                 <a
@@ -87,12 +81,13 @@ export const Sidebar = ({ className }: SidebarProps) => {
                       : "text-gray-300 hover:text-[#01D167]"
                   )}
                 >
-                  <Image
-                    src={item.icon}
-                    alt={item.label}
-                    width={20}
-                    height={20}
-                    className="brightness-0 invert"
+                  <IconComponent
+                    width={24}
+                    height={24}
+                    className={cn(
+                      "transition-colors",
+                      item.active ? "text-[#01D167]" : "text-gray-300"
+                    )}
                   />
                   <span className="font-medium">{item.label}</span>
                 </a>

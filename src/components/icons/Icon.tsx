@@ -8,6 +8,11 @@ import {
   GPayIcon,
   ReplaceCardIcon,
   DeactivateCardIcon,
+  CardDetails,
+  CardTransactions,
+  CardIcon,
+  AspireLogoIcon,
+  PlusIcon,
 } from "@/assets/icons";
 
 // ---- Registry ----
@@ -17,6 +22,11 @@ export const iconRegistry = {
   gPay: GPayIcon,
   replaceCard: ReplaceCardIcon,
   deactivateCard: DeactivateCardIcon,
+  cardDetails: CardDetails,
+  cardTransactions: CardTransactions,
+  card: CardIcon,
+  aspirelogo: AspireLogoIcon,
+  plus: PlusIcon,
   // future icons can be added here
 } as const;
 

@@ -1,11 +1,18 @@
 "use client";
 
-import Image from "next/image";
 import HomeIconSvg from "@/assets/icons/Home.svg";
 import CardIconSvg from "@/assets/icons/Card.svg";
 import PaymentsIconSvg from "@/assets/icons/Payments.svg";
 import CreditIconSvg from "@/assets/icons/Credit.svg";
 import AccountIconSvg from "@/assets/icons/Account.svg";
+
+import {
+  HomeIconMobile,
+  CardIconMobile,
+  PaymentsIconMobile,
+  CreditIconMobile,
+  AccountIconMobile,
+} from "@/assets/icons";
 import { cn } from "@/utils/cn";
 
 interface MobileNavProps {
@@ -15,31 +22,31 @@ interface MobileNavProps {
 export const MobileNav = ({ className }: MobileNavProps) => {
   const navigationItems = [
     {
-      icon: HomeIconSvg,
+      icon: HomeIconMobile,
       label: "Home",
       href: "/",
       active: false,
     },
     {
-      icon: CardIconSvg,
+      icon: CardIconMobile,
       label: "Cards",
       href: "/cards",
       active: true,
     },
     {
-      icon: PaymentsIconSvg,
+      icon: PaymentsIconMobile,
       label: "Payments",
       href: "/payments",
       active: false,
     },
     {
-      icon: CreditIconSvg,
+      icon: CreditIconMobile,
       label: "Credit",
       href: "/credit",
       active: false,
     },
     {
-      icon: AccountIconSvg,
+      icon: AccountIconMobile,
       label: "Profile",
       href: "/profile",
       active: false,
@@ -55,6 +62,7 @@ export const MobileNav = ({ className }: MobileNavProps) => {
     >
       <nav className="flex items-center justify-around py-2">
         {navigationItems.map((item) => {
+          const IconComponent = item.icon;
           return (
             <a
               key={item.label}
@@ -64,22 +72,14 @@ export const MobileNav = ({ className }: MobileNavProps) => {
                 item.active ? "text-[#01D167]" : "text-gray-500"
               )}
             >
-              <Image
-                src={item.icon}
-                alt={item.label}
-                width={20}
-                height={20}
+              <IconComponent
+                width={24}
+                height={24}
                 className={cn(
-                  "mb-1",
-                  item.active
-                    ? "brightness-0 saturate-100"
-                    : "brightness-0 opacity-60"
+                  "mb-1 transition-colors",
+                  item.active ? "text-[#01D167]" : "text-gray-500",
+                  "mb-1"
                 )}
-                style={{
-                  filter: item.active
-                    ? "brightness(0) saturate(100%) invert(50%) sepia(85%) saturate(1945%) hue-rotate(85deg) brightness(94%) contrast(101%)"
-                    : "",
-                }}
               />
               <span className="text-xs font-medium">{item.label}</span>
             </a>

@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/utils/cn";
 import CardIconSvg from "@/assets/icons/Card.svg";
-import Image from "next/image";
+import { Icon } from "../icons/Icon";
 
 interface TransactionListProps {
   transactions: Transaction[];
@@ -111,15 +111,13 @@ export const TransactionList = ({
                 </span>
               </div>
               <div className="flex items-center space-x-1">
-                <div className="w-4 h-4 bg-[#325BAF] rounded-full flex items-center justify-center">
-                  <Image
-                    src={CardIconSvg}
-                    alt={transaction.iconType}
-                    width={8}
-                    height={8}
-                    className="brightness-0 invert"
+                {/* <div className="w-[24px] h-[20px] bg-[#325BAF] rounded-full flex items-center justify-center">
+                  <Icon
+                    name="card"
+                    className="text-white w-[10px] h-[10px]"
+                    size={10}
                   />
-                </div>
+                </div> */}
                 <span className="text-sm text-[#325BAF]">
                   {transaction.type === "credit"
                     ? "Refund on debit card"
