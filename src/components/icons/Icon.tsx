@@ -12,6 +12,7 @@ import {
   CardTransactions,
   CardIcon,
   AspireLogoIcon,
+  AspireLogoSvgMobile,
 } from "@/assets/icons";
 
 // ---- Registry ----
@@ -25,6 +26,7 @@ export const iconRegistry = {
   cardTransactions: CardTransactions,
   card: CardIcon,
   aspirelogo: AspireLogoIcon,
+  aspireLogoMobile: AspireLogoSvgMobile,
   // future icons can be added here
 } as const;
 

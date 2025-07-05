@@ -16,6 +16,12 @@ import DownArrow1Icon from "./down-arrow-1.svg";
 import CardDetails from "./group-11889.svg";
 import CardTransactions from "./group-11889-1.svg";
 import BusinessAndFinanceIcon from "./business-and-finance.svg";
+import AspireLogoSvgMobile from "./aspire-mobile-icon.svg";
+import HomeIconMobile from "./logo-mobile.svg";
+import CardIconMobile from "./cards-mobile.svg";
+import PaymentsIconMobile from "./payments-mobile.svg";
+import CreditIconMobile from "./credit-mobile.svg";
+import AccountIconMobile from "./profile-mobile.svg";
 
 // Export all icons with consistent naming
 export {
@@ -36,15 +42,12 @@ export {
   CardDetails,
   CardTransactions,
   BusinessAndFinanceIcon,
-};
-
-// Mobile aliases for consistency
-export {
-  HomeIcon as HomeIconMobile,
-  CardIcon as CardIconMobile,
-  PaymentsIcon as PaymentsIconMobile,
-  CreditIcon as CreditIconMobile,
-  AccountIcon as AccountIconMobile,
+  AspireLogoSvgMobile,
+  HomeIconMobile,
+  CardIconMobile,
+  PaymentsIconMobile,
+  CreditIconMobile,
+  AccountIconMobile,
 };
 
 // Icon registry for the Icon component
@@ -66,6 +69,7 @@ export const iconRegistry = {
   cardDetails: CardDetails,
   cardTransactions: CardTransactions,
   businessAndFinance: BusinessAndFinanceIcon,
+  aspireLogoSvgMobile: AspireLogoSvgMobile,
 } as const;
 
 export type IconName = keyof typeof iconRegistry;

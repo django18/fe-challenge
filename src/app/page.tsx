@@ -108,7 +108,7 @@ export default function HomePage() {
       >
         {/* Logo top right */}
         <div className="flex justify-end mb-4">
-          <Icon name="aspirelogo" size={36} />
+          <Icon name="aspireLogoMobile" size={26} />
         </div>
 
         {/* Balance and New card */}
