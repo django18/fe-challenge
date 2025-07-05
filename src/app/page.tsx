@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef } from "react";
 import { Card as CardType, CardFormData } from "@/types/card";
 import { useCardsRedux } from "@/hooks/useCardsRedux";
 import { CardCarousel } from "@/components/Card/CardCarousel";
@@ -10,7 +10,6 @@ import { TransactionList } from "@/components/ui/TransactionList";
 import { MobileNav } from "@/components/ui/MobileNav";
 import { Accordion } from "@/components/ui/Accordion";
 import { Plus } from "lucide-react";
-import AspireLogoSvg from "@/assets/icons/Aspire-Logo.svg";
 import FreezeCardIconSvg from "@/assets/icons/freeze-card.svg";
 import SetSpendLimitIconSvg from "@/assets/icons/set-spend-limit.svg";
 import GPayIconSvg from "@/assets/icons/GPay.svg";
